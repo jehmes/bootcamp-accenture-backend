@@ -12,7 +12,7 @@ import javax.persistence.Table;
 
 import com.br.models.Endereco;
 
-// Testando commit 
+// Testando commit...
 
 @Entity
 @Table(name = "deposito")
