@@ -19,25 +19,25 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import com.br.repositorys.UserRepository;
-import com.br.models.Login;
+import com.br.models.LoginUser;
 import com.br.models.User;
-import com.br.services.LoginService;
+import com.br.services.LoginUserService;
 import com.br.services.UserService;
 
 @CrossOrigin
 @RestController
 @EnableWebMvc
 @ControllerAdvice
-public class LoginController {
+public class LoginUserController {
 
 	@Qualifier("myImplementation")
 	@Autowired
-	LoginService loginService;
+	LoginUserService loginService;
 	@Autowired
 	UserService userService;
 	
 	@RequestMapping(value = "/login", method=RequestMethod.POST)
-	private ResponseEntity<User> saveStudent(@RequestBody Login login) {
+	private ResponseEntity<User> getLogin(@RequestBody LoginUser login) {
 //		Login loginTeste = new Login();
 		
 		User user = new User();
