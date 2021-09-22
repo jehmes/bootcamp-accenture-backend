@@ -9,7 +9,7 @@ import com.br.repositorys.UserRepository;
 
 @Service
 @Qualifier("myImplementation")
-public class LoginService {
+public class LoginUserService {
 
 	@Autowired
 	UserRepository userRepository;

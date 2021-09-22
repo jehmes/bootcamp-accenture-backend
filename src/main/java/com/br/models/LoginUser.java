@@ -8,7 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 
-public class Login {
+public class LoginUser {
 	
 	private int id;
 
@@ -17,7 +17,7 @@ public class Login {
 	private String senha;
 	
 
-	public Login() {
+	public LoginUser() {
 
 	}
 
