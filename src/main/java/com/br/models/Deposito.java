@@ -30,6 +30,9 @@ public class Deposito {
     @JoinColumn(name = "endereco_id", referencedColumnName = "id") 
 	private Endereco endereco;
 	
+	@Column(name = "criador")
+	private String criador;
+	
 	public Deposito() {
 	}
 	
@@ -50,6 +53,12 @@ public class Deposito {
 	}
 	public void setEndereco(Endereco endereco) {
 		this.endereco = endereco;
+	}
+	public String getCriador() {
+		return criador;
+	}
+	public void setCriador(String criador) {
+		this.criador = criador;
 	}
 	
 	

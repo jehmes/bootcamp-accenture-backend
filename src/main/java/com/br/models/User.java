@@ -25,7 +25,6 @@ import com.br.models.*;
 public class User implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
-//	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "us_seq")
 	@Column(name = "id")
@@ -43,12 +42,10 @@ public class User implements Serializable{
 	@Column(name = "pontos")
 	private int pontos;
 	
-//	@OnDelete(action = OnDeleteAction.CASCADE)
 	@OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "endereco_id", referencedColumnName = "id")	 //123123
 	private Endereco endereco;
 	
-//	@OnDelete(action = OnDeleteAction.CASCADE)
 	@OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "deposito_id", referencedColumnName = "id")
 	private Deposito deposito;
