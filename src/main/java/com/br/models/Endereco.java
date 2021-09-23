@@ -22,7 +22,7 @@ public class Endereco {
 	@Column(name = "cep")
 	private String cep;
 	
-	@Column(name = "logradouro")   //1UH231Y287312873Y
+	@Column(name = "logradouro")   
 	private String logradouro;
 	
 	@Column(name = "bairro")
@@ -34,6 +34,8 @@ public class Endereco {
 	@Column(name = "estado")
 	private String estado;
 	
+	@Column(name = "numero")
+	private String numero;
 	
 	public Endereco() {
 	}
@@ -74,6 +76,12 @@ public class Endereco {
 	}
 	public void setEstado(String estado) {
 		this.estado = estado;
+	}
+	public String getNumero() {
+		return numero;
+	}
+	public void setNumero(String numero) {
+		this.numero = numero;
 	}
 
 	
