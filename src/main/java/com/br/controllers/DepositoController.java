@@ -41,4 +41,17 @@ public class DepositoController {
 		return depositoService.save(deposito);
 	}
 	
+	@RequestMapping(value = "/deposito/update/{id}", method = RequestMethod.POST) 
+	private  ResponseEntity<Deposito> updateUser(@PathVariable(value = "id") int id, @RequestBody Deposito newDeposito) {
+		Optional<Deposito> oldDeposito = Optional.ofNullable(depositoService.getDepositoById(id));
+        if(oldDeposito.isPresent()){
+        	
+//        	EnderecoDeposito enderecoDeposito = new EnderecoDeposito();
+        	
+        	depositoService.save(newDeposito);
+            return new ResponseEntity<Deposito>(newDeposito, HttpStatus.OK);
+        }
+        else
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
 }
