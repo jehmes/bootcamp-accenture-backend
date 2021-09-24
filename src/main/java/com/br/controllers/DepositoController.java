@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -23,10 +24,16 @@ public class DepositoController {
 	
 	@Qualifier("myImplementation")
 	@Autowired
-	DepositoService repositoService;
+	DepositoService depositoService;
 	
 	@RequestMapping(value = "/deposito", method=RequestMethod.GET)
 	private List<Deposito>getAllUsers() {
-		return repositoService.getAllDepositos();
+		return depositoService.getAllDepositos();
+	}
+	
+	@RequestMapping(value = "/deposito", method=RequestMethod.POST)
+	private Deposito Post( @RequestBody Deposito deposito) {
+		return depositoService.saveOrUpdate(deposito);
+			
 	}
 }

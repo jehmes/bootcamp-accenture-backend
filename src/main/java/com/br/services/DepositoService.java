@@ -24,4 +24,13 @@ public class DepositoService {
 		depositoRepository.findAll().forEach(user -> depositos.add(user));
 		return depositos;
 	}
+	
+	public Deposito saveOrUpdate(Deposito deposito) {
+		if(!deposito.getClass().equals(null)) {
+			depositoRepository.save(deposito);
+			return deposito;
+		} else {
+			return deposito;
+		}
+	}
 }
