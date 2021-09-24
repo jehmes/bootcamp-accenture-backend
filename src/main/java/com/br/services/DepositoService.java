@@ -25,7 +25,11 @@ public class DepositoService {
 		return depositos;
 	}
 	
-	public Deposito saveOrUpdate(Deposito deposito) {
+	public Deposito getDepositoById(int id) {
+		return depositoRepository.findById(id).get();
+	}
+	
+	public Deposito save(Deposito deposito) {
 		if(!deposito.getClass().equals(null)) {
 			depositoRepository.save(deposito);
 			return deposito;
@@ -33,4 +37,6 @@ public class DepositoService {
 			return deposito;
 		}
 	}
+	
+	
 }

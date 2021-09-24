@@ -20,10 +20,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
+import com.br.models.Deposito;
 import com.br.models.User;
+import com.br.services.DepositoService;
 import com.br.services.UserService;
 
-@CrossOrigin
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @EnableWebMvc
 @ControllerAdvice
@@ -33,13 +35,14 @@ public class UserController {
 	@Autowired
 	UserService userService;
 	
+	@Autowired
+	DepositoService depositoService;
 
 	@RequestMapping(value = "/user", method=RequestMethod.GET)
 	private List<User>getAllUsers() {
 		return userService.getAllUsers();
 	}
 	
-	@CrossOrigin(origins = "http://localhost:4200")
 	@RequestMapping(value = "/user/{id}", method=RequestMethod.GET)
 	private ResponseEntity<User> getUser(@PathVariable("id") int id) {
 		 Optional<User> usuario = Optional.ofNullable(userService.getUserById(id));
@@ -52,13 +55,20 @@ public class UserController {
 	
 	@RequestMapping(value = "/user/delete/{id}", method = RequestMethod.DELETE)
 	private void deleteUser(@PathVariable("id") int id) {
+		User user = new User();
+		user = userService.getUserById(id);
+		user.setDeposito(null);
+		
 		userService.delete(id);
 	}
 	
 	@RequestMapping(value = "/user", method = RequestMethod.POST)
-	   public User Post( @RequestBody User usuario)
-	   {
-	        return userService.saveOrUpdate(usuario);
+	   public User Post( @RequestBody User user) {
+		Deposito deposito = depositoService.getDepositoById(user.getDeposito().getId());
+		
+		user.setDeposito(deposito);
+		
+	        return userService.saveOrUpdate(user);
 	   }
 
 	
@@ -68,7 +78,7 @@ public class UserController {
         if(oldUser.isPresent()){
 //        	int guardarPontos = (newUser.getPontos());
         	
-        	userService.delete(id);
+//        	userService.delete(id);
         	
 //        	newUser.setPontos(guardarPontos);
             userService.saveOrUpdate(newUser);

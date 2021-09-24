@@ -11,8 +11,8 @@ import javax.persistence.Table;
 import com.br.models.Deposito;
 
 @Entity
-@Table(name = "endereco")
-public class Endereco {
+@Table(name = "endereco_deposito")
+public class EnderecoDeposito {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -37,7 +37,7 @@ public class Endereco {
 	@Column(name = "numero")
 	private String numero;
 	
-	public Endereco() {
+	public EnderecoDeposito() {
 	}
 	
 	

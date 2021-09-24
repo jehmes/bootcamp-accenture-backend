@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
@@ -26,7 +27,7 @@ public class User implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "us_seq")
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id")
 	private int id;
 	
@@ -43,11 +44,9 @@ public class User implements Serializable{
 	private int pontos;
 	
 	@OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "endereco_id", referencedColumnName = "id")	 //123123
-	private Endereco endereco;
-	
-	@OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "deposito_id", referencedColumnName = "id")
+	private EnderecoUser endereco;
+
+	@ManyToOne(cascade = CascadeType.ALL)
 	private Deposito deposito;
 	
 	@Column(name = "contato")
@@ -91,10 +90,10 @@ public class User implements Serializable{
 	public void setPontos(int pontos) {
 		this.pontos = pontos;
 	}
-	public Endereco getEndereco() {
+	public EnderecoUser getEndereco() {
 		return endereco;
 	}
-	public void setEndereco(Endereco endereco) {
+	public void setEndereco(EnderecoUser endereco) {
 		this.endereco = endereco;
 	}
 	public Deposito getDeposito() {
