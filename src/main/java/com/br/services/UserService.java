@@ -41,5 +41,12 @@ public class UserService {
 		userRepository.deleteById(id);
 	}
 	
+	public User saveScore(User user, float score) {
+		float oldScore = user.getPontos();
+		float newScore = oldScore - score;
+    	
+    	user.setPontos(newScore);
+		return userRepository.save(user);
+	}
 	
 }

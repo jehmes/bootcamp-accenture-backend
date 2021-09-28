@@ -15,6 +15,8 @@ import javax.persistence.Table;
 
 import com.br.models.EnderecoDeposito;
 
+// Testando commit...
+
 @Entity
 @Table(name = "deposito")
 public class Deposito {
