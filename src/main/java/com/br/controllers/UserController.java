@@ -88,4 +88,24 @@ public class UserController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 	
+	@RequestMapping(value = "/user/discount/{id}", method = RequestMethod.POST) 
+	private  ResponseEntity<User> discountScore(@PathVariable(value = "id") int id,  @RequestBody float score) {
+		Optional<User> user = Optional.ofNullable(userService.getUserById(id));
+					
+        if(user.isPresent()){
+        	
+        	User userScore = new User();
+        	userScore = userService.getUserById(id);
+        	
+//        	int guardarPontos = (newUser.getPontos());
+        	
+//        	userService.delete(id);
+        	
+//        	newUser.setPontos(guardarPontos);
+            userService.saveScore(userScore, score);
+            return new ResponseEntity<User>(userScore, HttpStatus.OK);
+        }
+        else
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
 }

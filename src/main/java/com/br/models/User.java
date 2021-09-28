@@ -41,7 +41,7 @@ public class User implements Serializable{
 	private String senha;
 	
 	@Column(name = "pontos")
-	private int pontos;
+	private float pontos;
 	
 	@OneToOne(cascade = CascadeType.ALL)
 	private EnderecoUser endereco;
@@ -84,10 +84,10 @@ public class User implements Serializable{
 	public void setSenha(String senha) {
 		this.senha = senha;
 	}
-	public int getPontos() {
+	public float getPontos() {
 		return pontos;
 	}
-	public void setPontos(int pontos) {
+	public void setPontos(float pontos) {
 		this.pontos = pontos;
 	}
 	public EnderecoUser getEndereco() {
