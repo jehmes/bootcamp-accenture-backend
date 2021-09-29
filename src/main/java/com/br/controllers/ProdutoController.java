@@ -1,5 +1,9 @@
 package com.br.controllers;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.Optional;
 
@@ -10,10 +14,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import com.br.models.Deposito;
@@ -68,6 +75,25 @@ public class ProdutoController {
         else
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
+	
+    @PostMapping("/upload") // //new annotation since 4.3
+    public String singleFileUpload(@RequestParam("file") MultipartFile file) {
+
+    		String UPLOADED_FOLDER = "C:\\Users\\jehmes.silva\\Desktop\\bootcamp\\frontend\\bootcamp_project-frontend\\src\\assets\\img-cart\\";
+        try {
+
+            // Get the file and save it somewhere
+            byte[] bytes = file.getBytes();
+            Path path = Paths.get(UPLOADED_FOLDER + file.getOriginalFilename());
+            Files.write(path, bytes);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return "redirect:/uploadStatus";
+    }
+	
 	
 
 }
