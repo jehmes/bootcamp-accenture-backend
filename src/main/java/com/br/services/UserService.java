@@ -7,15 +7,17 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import com.br.customException.customException;
+import com.br.customException.CustomException;
 import com.br.models.User;
 import com.br.repositorys.UserRepository;
+import com.br.message.*;
 
 
 @Service
 @Qualifier("myImplementation")
 public class UserService {
 
+	Message message;
 	
 	@Autowired
 	UserRepository userRepository;
@@ -38,14 +40,14 @@ public class UserService {
 		return userRepository.save(user);
 	}
 	
-	public User save(User user) throws customException {
+	public User save(User user) throws CustomException {
 		User userExist = new User();
 		userExist = userRepository.findByCpf(user.getCpf());
 		if (userExist == null) {
 			return userRepository.save(user);
 			
 		} else {
-			throw new customException("Usuário ja existe");
+			throw new CustomException(Message.USUARIO_EXISTENTE.getMessage());
 		}
 	}
 	

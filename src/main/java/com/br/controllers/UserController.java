@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
-import com.br.customException.customException;
+import com.br.customException.CustomException;
 import com.br.models.Deposito;
 import com.br.models.User;
 import com.br.services.DepositoService;
@@ -64,7 +64,7 @@ public class UserController {
 	}
 	
 	@RequestMapping(value = "/user", method = RequestMethod.POST)
-	   public User Post( @RequestBody User user) throws customException {
+	   public User Post( @RequestBody User user) throws CustomException {
 		Deposito deposito = depositoService.getDepositoById(user.getDeposito().getId());
 		
 		user.setDeposito(deposito);
