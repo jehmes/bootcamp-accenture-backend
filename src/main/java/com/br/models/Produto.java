@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.Table;
 
 @Entity
@@ -28,8 +29,12 @@ public class Produto {
 	@Column(name = "descricao")
 	private String descricao;
 	
+	@Lob
 	@Column(name = "url")
 	private String url;
+	
+	@Column(name = "formato_imagem")
+	private String formato_imagem;
 
 	public Produto() {
 		super();
@@ -81,6 +86,14 @@ public class Produto {
 
 	public void setUrl(String url) {
 		this.url = url;
+	}
+
+	public String getFormato_imagem() {
+		return formato_imagem;
+	}
+
+	public void setFormato_imagem(String formato_imagem) {
+		this.formato_imagem = formato_imagem;
 	}
 
 	

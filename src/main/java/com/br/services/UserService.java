@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import com.br.customException.customException;
 import com.br.models.User;
 import com.br.repositorys.UserRepository;
 
@@ -35,6 +36,17 @@ public class UserService {
 	
 	public User saveOrUpdate(User user) {
 		return userRepository.save(user);
+	}
+	
+	public User save(User user) throws customException {
+		User userExist = new User();
+		userExist = userRepository.findByCpf(user.getCpf());
+		if (userExist.equals(null)) {
+			return userRepository.save(user);
+			
+		} else {
+			throw new customException("Usuário ja existe");
+		}
 	}
 	
 	public void delete(int id) {
