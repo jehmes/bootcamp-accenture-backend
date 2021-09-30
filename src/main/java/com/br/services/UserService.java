@@ -41,7 +41,7 @@ public class UserService {
 	public User save(User user) throws customException {
 		User userExist = new User();
 		userExist = userRepository.findByCpf(user.getCpf());
-		if (userExist.equals(null)) {
+		if (userExist == null) {
 			return userRepository.save(user);
 			
 		} else {
