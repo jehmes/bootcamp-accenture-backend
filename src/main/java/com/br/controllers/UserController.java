@@ -2,18 +2,16 @@ package com.br.controllers;
 import java.util.List;
 import java.util.Optional;
 
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -64,12 +62,17 @@ public class UserController {
 	}
 	
 	@RequestMapping(value = "/user", method = RequestMethod.POST)
-	   public User Post( @RequestBody User user) throws CustomException {
+	   public String Post( @RequestBody @Valid User user, BindingResult bindingResult) throws CustomException {
+		if(bindingResult.hasErrors()) {
+			return "/user";
+		}
+		
 		Deposito deposito = depositoService.getDepositoById(user.getDeposito().getId());
 		
 		user.setDeposito(deposito);
 		
-	        return userService.save(user);
+	    userService.save(user);
+	    return "/user";
 	   }
 
 	

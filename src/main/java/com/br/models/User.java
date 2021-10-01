@@ -8,17 +8,16 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
-
-import com.br.models.*;
+import org.hibernate.validator.constraints.br.CPF;
 
 @Entity
 @Table(name = "user")
@@ -32,12 +31,17 @@ public class User implements Serializable{
 	private int id;
 	
 	@Column(name = "nome")
+	@NotNull(message="Nome não pode ser nulo")
+	@NotBlank(message="Nome não pode ser vázio")
 	private String nome;
 	
 	@Column(name = "cpf")
+	@CPF
 	private String cpf;
 	
 	@Column(name = "senha")
+	@NotNull(message="Senha não pode ser nulo")
+	@NotBlank(message="Nome não pode ser vázio")
 	private String senha;
 	
 	@Column(name = "pontos")
@@ -50,9 +54,12 @@ public class User implements Serializable{
 	private Deposito deposito;
 	
 	@Column(name = "contato")
+	@NotNull(message="Contato não pode ser nulo")
+	@NotBlank(message="Contato não pode ser vázio")
 	private String contato;
 	
 	@Column(name = "email")
+	@Email
 	private String email;
 	
 	
