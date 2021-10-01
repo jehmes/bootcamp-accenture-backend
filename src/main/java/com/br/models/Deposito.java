@@ -1,7 +1,5 @@
 package com.br.models;
 
-import java.util.List;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,11 +8,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-
-import com.br.models.EnderecoDeposito;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 // Testando commit...
 
@@ -28,6 +26,9 @@ public class Deposito {
 	private int id;
 	
 	@Column(name = "nome")
+	@NotNull(message="Nome não pode ser nulo")
+	@NotBlank(message="Nome não pode ser vázio")
+	@Min(4)
 	private String nome;
 	
 	@Lob

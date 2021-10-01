@@ -13,7 +13,7 @@ public class LoginAdmService {
 
 	
 	public LoginAdm getLogin(String login, String senha) {
-		String loginAdm = "adm";
+		String loginAdm = "adm@gmail.com";
 		String senhaAdm = "123";
 		
 		LoginAdm adm = null;

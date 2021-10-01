@@ -3,10 +3,13 @@ package com.br.controllers;
 import java.util.List;
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,7 +20,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import com.br.models.Deposito;
-import com.br.models.User;
 import com.br.services.DepositoService;
 
 @CrossOrigin(origins = "http://localhost:4200")
@@ -37,8 +39,12 @@ public class DepositoController {
 	}
 	
 	@RequestMapping(value = "/deposito", method=RequestMethod.POST)
-	private Deposito Post( @RequestBody Deposito deposito) {
-		return depositoService.save(deposito);
+	private String Post( @RequestBody @Valid Deposito deposito, BindingResult bindingResult) {
+		if(bindingResult.hasErrors()) {
+			return "/deposito";
+		}
+		depositoService.save(deposito);
+		return "/deposito";
 	}
 	
 	@RequestMapping(value = "/deposito/update/{id}", method = RequestMethod.POST) 
