@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
+import com.br.customException.CustomException;
 import com.br.models.Deposito;
 import com.br.models.User;
 import com.br.services.DepositoService;
@@ -63,12 +64,12 @@ public class UserController {
 	}
 	
 	@RequestMapping(value = "/user", method = RequestMethod.POST)
-	   public User Post( @RequestBody User user) {
+	   public User Post( @RequestBody User user) throws CustomException {
 		Deposito deposito = depositoService.getDepositoById(user.getDeposito().getId());
 		
 		user.setDeposito(deposito);
 		
-	        return userService.saveOrUpdate(user);
+	        return userService.save(user);
 	   }
 
 	
@@ -76,11 +77,7 @@ public class UserController {
 	private  ResponseEntity<User> updateUser(@PathVariable(value = "id") int id, @RequestBody User newUser) {
 		Optional<User> oldUser = Optional.ofNullable(userService.getUserById(id));
         if(oldUser.isPresent()){
-//        	int guardarPontos = (newUser.getPontos());
-        	
-//        	userService.delete(id);
-        	
-//        	newUser.setPontos(guardarPontos);
+
             userService.saveOrUpdate(newUser);
             return new ResponseEntity<User>(newUser, HttpStatus.OK);
         }
@@ -97,11 +94,7 @@ public class UserController {
         	User userScore = new User();
         	userScore = userService.getUserById(id);
         	
-//        	int guardarPontos = (newUser.getPontos());
-        	
-//        	userService.delete(id);
-        	
-//        	newUser.setPontos(guardarPontos);
+
             userService.saveScore(userScore, score);
             return new ResponseEntity<User>(userScore, HttpStatus.OK);
         }

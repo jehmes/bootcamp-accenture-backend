@@ -7,14 +7,17 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import com.br.customException.CustomException;
 import com.br.models.User;
 import com.br.repositorys.UserRepository;
+import com.br.message.*;
 
 
 @Service
 @Qualifier("myImplementation")
 public class UserService {
 
+	Message message;
 	
 	@Autowired
 	UserRepository userRepository;
@@ -35,6 +38,17 @@ public class UserService {
 	
 	public User saveOrUpdate(User user) {
 		return userRepository.save(user);
+	}
+	
+	public User save(User user) throws CustomException {
+		User userExist = new User();
+		userExist = userRepository.findByCpf(user.getCpf());
+		if (userExist == null) {
+			return userRepository.save(user);
+			
+		} else {
+			throw new CustomException(Message.USUARIO_EXISTENTE.getMessage());
+		}
 	}
 	
 	public void delete(int id) {

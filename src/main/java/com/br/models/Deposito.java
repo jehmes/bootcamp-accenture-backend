@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -28,15 +29,23 @@ public class Deposito {
 	
 	@Column(name = "nome")
 	private String nome;
+	
+	@Lob
+	@Column(name = "url")
+	private String url;
+	
+	@Column(name = "tipo_material")
+	private String[] tipoMaterial;
+	
+	@Column(name = "formato_imagem")
+	private String formato_imagem;
 
 	@OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "endereco_id", referencedColumnName = "id") 
 	private EnderecoDeposito endereco;
 	
-//	@OneToMany(mappedBy="deposito")
-//	private List<User> users;
-
 	public Deposito() {
+		super();
 	}
 	
 	public int getId() {
@@ -57,12 +66,30 @@ public class Deposito {
 	public void setEndereco(EnderecoDeposito endereco) {
 		this.endereco = endereco;
 	}
-//	public List<User> getUsers() {
-//		return users;
-//	}
-//	public void setUsers(List<User> users) {
-//		this.users = users;
-//	}
+
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
+
+	public String getFormato_imagem() {
+		return formato_imagem;
+	}
+
+	public void setFormato_imagem(String formato_imagem) {
+		this.formato_imagem = formato_imagem;
+	}
+
+	public String[] getTipoMaterial() {
+		return tipoMaterial;
+	}
+
+	public void setTipoMaterial(String[] tipoMaterial) {
+		this.tipoMaterial = tipoMaterial;
+	}
 	
 	
 }

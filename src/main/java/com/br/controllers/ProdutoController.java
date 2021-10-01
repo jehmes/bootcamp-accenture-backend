@@ -75,25 +75,5 @@ public class ProdutoController {
         else
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
-	
-    @PostMapping("/upload") // //new annotation since 4.3
-    public String singleFileUpload(@RequestParam("file") MultipartFile file) {
-
-    		String UPLOADED_FOLDER = "C:\\Users\\jehmes.silva\\Desktop\\bootcamp\\frontend\\bootcamp_project-frontend\\src\\assets\\img-cart\\";
-        try {
-
-            // Get the file and save it somewhere
-            byte[] bytes = file.getBytes();
-            Path path = Paths.get(UPLOADED_FOLDER + file.getOriginalFilename());
-            Files.write(path, bytes);
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return "redirect:/uploadStatus";
-    }
-	
-	
 
 }
