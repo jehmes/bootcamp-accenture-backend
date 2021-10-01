@@ -13,8 +13,8 @@ import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.br.CPF;
@@ -42,6 +42,7 @@ public class User implements Serializable{
 	@Column(name = "senha")
 	@NotNull(message="Senha não pode ser nulo")
 	@NotBlank(message="Nome não pode ser vázio")
+	@Min(6)
 	private String senha;
 	
 	@Column(name = "pontos")

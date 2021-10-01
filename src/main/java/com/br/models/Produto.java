@@ -7,6 +7,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.Table;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "produtos")
@@ -18,15 +21,22 @@ public class Produto {
 	private int id;
 	
 	@Column(name = "nome")
+	@NotNull(message="Nome não pode ser nulo")
+	@NotBlank(message="Nome não pode ser vázio")
+	@Min(4)
 	private String nome;
 	
-	@Column(name = "preco")   
+	@Column(name = "preco")  
+	@Min(0)
 	private float preco;
 	
 	@Column(name = "preco_total")
 	private float precoTotal;
 	
 	@Column(name = "descricao")
+	@NotNull(message="Descrição não pode ser nulo")
+	@NotBlank(message="Descrição não pode ser vázio")
+	@Min(4)
 	private String descricao;
 	
 	@Lob
