@@ -28,7 +28,6 @@ public class Deposito {
 	@Column(name = "nome")
 	@NotNull(message="Nome não pode ser nulo")
 	@NotBlank(message="Nome não pode ser vázio")
-	@Min(4)
 	private String nome;
 	
 	@Lob

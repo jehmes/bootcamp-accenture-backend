@@ -23,11 +23,9 @@ public class Produto {
 	@Column(name = "nome")
 	@NotNull(message="Nome não pode ser nulo")
 	@NotBlank(message="Nome não pode ser vázio")
-	@Min(4)
 	private String nome;
 	
 	@Column(name = "preco")  
-	@Min(0)
 	private float preco;
 	
 	@Column(name = "preco_total")
@@ -36,7 +34,6 @@ public class Produto {
 	@Column(name = "descricao")
 	@NotNull(message="Descrição não pode ser nulo")
 	@NotBlank(message="Descrição não pode ser vázio")
-	@Min(4)
 	private String descricao;
 	
 	@Lob

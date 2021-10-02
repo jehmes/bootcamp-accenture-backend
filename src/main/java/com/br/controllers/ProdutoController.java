@@ -53,13 +53,13 @@ public class ProdutoController {
 	}
 	
 	@RequestMapping(value = "/product", method = RequestMethod.POST)
-	   public String Post( @RequestBody @Valid Produto produto, BindingResult bindingResult) {
+	   public ResponseEntity<Produto> Post( @RequestBody @Valid Produto produto, BindingResult bindingResult) {
 		
 		if(bindingResult.hasErrors()) {
-			return "/product";
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 	    produtoService.saveOrUpdate(produto);
-	    return "/product";
+	    return new ResponseEntity<Produto>(produto, HttpStatus.OK);
 	   }
 	
 	@RequestMapping(value = "/product/update/{id}", method = RequestMethod.POST) 
