@@ -1,8 +1,18 @@
 package com.br.models;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
 public class LoginAdm {
 
+	@Email
 	private String email;
+	
+	@NotNull(message="Senha não pode ser nulo")
+	@NotBlank(message="Senha não pode ser vázio")
+	@Min(6)
 	private String senha;
 	
 	public LoginAdm(String email, String senha) {
