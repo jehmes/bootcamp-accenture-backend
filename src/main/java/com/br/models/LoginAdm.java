@@ -12,7 +12,6 @@ public class LoginAdm {
 	
 	@NotNull(message="Senha não pode ser nulo")
 	@NotBlank(message="Senha não pode ser vázio")
-	@Min(6)
 	private String senha;
 	
 	public LoginAdm(String email, String senha) {

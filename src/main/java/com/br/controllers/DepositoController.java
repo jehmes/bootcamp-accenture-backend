@@ -39,12 +39,12 @@ public class DepositoController {
 	}
 	
 	@RequestMapping(value = "/deposito", method=RequestMethod.POST)
-	private String Post( @RequestBody @Valid Deposito deposito, BindingResult bindingResult) {
+	private ResponseEntity<Deposito> Post( @RequestBody @Valid Deposito deposito, BindingResult bindingResult) {
 		if(bindingResult.hasErrors()) {
-			return "/deposito";
+			return new ResponseEntity<Deposito>(deposito, HttpStatus.OK);
 		}
 		depositoService.save(deposito);
-		return "/deposito";
+		return new ResponseEntity<Deposito>(deposito, HttpStatus.OK);
 	}
 	
 	@RequestMapping(value = "/deposito/update/{id}", method = RequestMethod.POST) 

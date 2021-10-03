@@ -42,7 +42,6 @@ public class User implements Serializable{
 	@Column(name = "senha")
 	@NotNull(message="Senha não pode ser nulo")
 	@NotBlank(message="Nome não pode ser vázio")
-	@Min(6)
 	private String senha;
 	
 	@Column(name = "pontos")

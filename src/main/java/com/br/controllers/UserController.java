@@ -62,9 +62,9 @@ public class UserController {
 	}
 	
 	@RequestMapping(value = "/user", method = RequestMethod.POST)
-	   public String Post( @RequestBody @Valid User user, BindingResult bindingResult) throws CustomException {
+	   public ResponseEntity<User> Post( @RequestBody @Valid User user, BindingResult bindingResult) throws CustomException {
 		if(bindingResult.hasErrors()) {
-			return "/user";
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 		
 		Deposito deposito = depositoService.getDepositoById(user.getDeposito().getId());
@@ -72,7 +72,7 @@ public class UserController {
 		user.setDeposito(deposito);
 		
 	    userService.save(user);
-	    return "/user";
+	    return new ResponseEntity<User>(user, HttpStatus.OK);
 	   }
 
 	
