@@ -7,12 +7,15 @@ import java.util.List;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.ParameterBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.schema.ModelRef;
+import springfox.documentation.service.ApiInfo;
 import springfox.documentation.service.Contact;
 import springfox.documentation.service.Parameter;
 import springfox.documentation.spi.DocumentationType;
@@ -21,46 +24,38 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @Configuration
 @EnableSwagger2
-public class Swagger {
-	@Bean
-	public Docket detalheApi() {
-		
-		ParameterBuilder paramBuilder = new ParameterBuilder();
-		List<Parameter> params = new ArrayList<>();
-		paramBuilder.name("Authorization").modelRef(new ModelRef("string"))
-		.parameterType("header")
-		.required(false)
-		.build();
-		
-		params.add(paramBuilder.build());
-		
-		Docket docket = new Docket(DocumentationType.SWAGGER_2);
- 
-		docket
-		.globalOperationParameters(params)
-		.select()
-		.apis(RequestHandlerSelectors.basePackage("com.br"))
-		.paths(PathSelectors.any())
-		.build()
-		.apiInfo(this.informacoesApi().build())
-		.consumes(new HashSet<String>(Arrays.asList("application/json")))
-		.produces(new HashSet<String>(Arrays.asList("application/json")));
-		
-		return docket;
-	}
-	private ApiInfoBuilder informacoesApi() {
-		 
-		ApiInfoBuilder apiInfoBuilder = new ApiInfoBuilder();
- 
-		apiInfoBuilder.title("Accenture - API");
-		apiInfoBuilder.description("API Accenture ");
-		apiInfoBuilder.version("1.0");
-		apiInfoBuilder.termsOfServiceUrl("Termo de uso: Accenture");
-		apiInfoBuilder.license("Licença - Accenture Academy");
-		apiInfoBuilder.licenseUrl("https://accenture.com/");
- 
-		return apiInfoBuilder;
- 
-	}
+public class Swagger implements WebMvcConfigurer{
+	
+	@Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
 
+        registry
+                .addResourceHandler("swagger-ui.html")
+                .addResourceLocations("classpath:/META-INF/resources/");
+
+        registry
+                .addResourceHandler("/webjars/**")
+                .addResourceLocations("classpath:/META-INF/resources/webjars/");
+    }
+
+    @Bean
+    public Docket apiDocket() {
+
+        return new Docket(DocumentationType.SWAGGER_2)
+                .apiInfo(getApiInfo())
+                .select()
+                .apis(RequestHandlerSelectors.basePackage("com.br.controllers"))
+                .paths(PathSelectors.any())
+                .build();
+    }
+
+    private ApiInfo getApiInfo() {
+
+        return new ApiInfoBuilder()
+                .title("Coleta Facil API Doc")
+                .description("API - Coleta Facil")
+                .version("1.0.0")
+                .build();
+    }
 }
+
