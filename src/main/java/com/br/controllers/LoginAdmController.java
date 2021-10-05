@@ -27,7 +27,6 @@ public class LoginAdmController {
 	
 	@RequestMapping(value = "/login-adm", method=RequestMethod.POST)
 	private ResponseEntity<LoginAdm> getLogin(@RequestBody @Valid LoginAdm login) {
-//		Login loginTeste = new Login();
 		
 		LoginAdm adm = new LoginAdm();
 
@@ -35,9 +34,6 @@ public class LoginAdmController {
 		
 		
 		if (!adm.equals(null)) {
-
-			
-//			loginTeste.setId(user.getId());
 			
 			return new ResponseEntity<LoginAdm>(login, HttpStatus.OK);
 		} else {

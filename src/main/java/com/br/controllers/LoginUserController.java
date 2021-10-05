@@ -33,7 +33,6 @@ public class LoginUserController {
 	
 	@RequestMapping(value = "/login", method=RequestMethod.POST)
 	private ResponseEntity<User> getLogin(@RequestBody @Valid LoginUser login) {
-//		Login loginTeste = new Login();
 		
 		User user = new User();
 
@@ -41,9 +40,7 @@ public class LoginUserController {
 		
 		
 		if (!user.equals(null)) {
-
 			
-//			loginTeste.setId(user.getId());
 			
 			return new ResponseEntity<User>(user, HttpStatus.OK);
 		} else {

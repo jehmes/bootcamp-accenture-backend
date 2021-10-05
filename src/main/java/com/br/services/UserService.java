@@ -2,6 +2,8 @@ package com.br.services;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -36,8 +38,21 @@ public class UserService {
 		return userRepository.findByCpfSenha(cpf, senha);
 	}
 	
-	public User saveOrUpdate(User user) {
-		return userRepository.save(user);
+	public User update(User user) throws CustomException {
+		Optional<User> userExist = Optional.empty();
+		User newUserCpf = new User();
+		
+		userExist = userRepository.findById(user.getId());
+		
+		newUserCpf = userRepository.findByCpf(user.getCpf());
+		
+		
+		if (userExist.get().getCpf().equals(user.getCpf()) || newUserCpf == null) {
+			return userRepository.save(user);
+			
+		} else {
+			throw new CustomException(Message.USUARIO_EXISTENTE.getMessage());
+		}
 	}
 	
 	public User save(User user) throws CustomException {
