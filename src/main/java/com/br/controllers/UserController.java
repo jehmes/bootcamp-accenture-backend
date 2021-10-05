@@ -77,11 +77,11 @@ public class UserController {
 
 	
 	@RequestMapping(value = "/user/update/{id}", method = RequestMethod.POST) 
-	private  ResponseEntity<User> updateUser(@PathVariable(value = "id") int id, @RequestBody User newUser) {
+	private  ResponseEntity<User> updateUser(@PathVariable(value = "id") int id, @RequestBody User newUser) throws CustomException {
 		Optional<User> oldUser = Optional.ofNullable(userService.getUserById(id));
         if(oldUser.isPresent()){
 
-            userService.saveOrUpdate(newUser);
+            userService.update(newUser);
             return new ResponseEntity<User>(newUser, HttpStatus.OK);
         }
         else
